@@ -2,33 +2,50 @@
 using namespace std;
 
 //#define ELEVATOR
-#define FACTORIAL
+//#define FACTORIAL
+//#define FACTORIAL1
 //#define POWER
+//#dedine POWER1
 //#define FIBONACCI1
 //#define FIBONACCI2
+#define FIBONACCI
 
-#ifdef ELEVATOR
-void elevator(int floor)
-{
-	if (floor == 0)
-	{
-		cout << "Вы в подвале" << endl;
-		return;
-	}
-	cout << floor << endl;
-	elevator(floor - 1);
-	cout << floor << endl;
-}
+void elevator(int floor);
+int factorial(int n);
+double power(int a, int n);
+void Fibonacci(int n/*, int a, int b*/);
 
 void main()
 {
 	setlocale(LC_ALL, "Russian");
 
+#ifdef ELEVATOR
 	int floor;
 	cout << "Введите номер этажа: "; cin >> floor;
 	elevator(floor);
-}
 #endif // ELEVATOR
+
+#ifdef FACTORIAL1
+	int n;
+	cout << "Введите число: "; cin >> n;
+	cout << factorial(n) << endl;
+#endif // FACTORIAL1
+
+#ifdef POWER1
+	int a;
+	int n;
+	cout << "Введите основание и показатель степени "; cin >> a >> n;
+	cout << power(a, n) << endl;
+#endif // POWER1
+
+#ifdef FIBONACCI
+	int n;
+	cout << "До какого предела вывести ряд Фибоначчи? "; cin >> n;
+	Fibonacci(n);
+#endif // FIBONACCI
+
+}
+
 
 #ifdef FACTORIAL
 long double fact(int n)
@@ -117,3 +134,47 @@ int main()
 	return 0;
 }
 #endif // FIBONACCI2
+
+void elevator(int floor)
+{
+	if (floor == 0)
+	{
+		cout << "Вы в подвале" << endl;
+		return;
+	}
+	cout << floor << endl;
+	elevator(floor - 1);
+	cout << floor << endl;
+}
+
+int factorial(int n)
+{
+	if (n == 0)return 1;
+	int f = n * factorial(n - 1);
+	return f;
+}
+
+double power(int a, int n)
+{
+	/*if (n == 0) return 1;
+	if (n < 0)
+	{
+		return 1./a * power(a, n + 1);
+	}
+	return a * power(a, n - 1);*/
+
+	return n == 0 ? 1 : n > 0 ? a * power(a, n - 1) : 1. / a * power(a, n + 1);
+}
+
+void Fibonacci(int n/*, int a, int b*/)
+{
+	static int a = 0, b = 1, c = 1;
+	if (a > n)return;
+	cout << a << "\t";
+	//Fibonacci(n, b, a + b);
+	/*a = b;
+	b = c;
+	c = a + b;*/
+	c = (a = b) + (b = c);
+	Fibonacci(n);
+}
